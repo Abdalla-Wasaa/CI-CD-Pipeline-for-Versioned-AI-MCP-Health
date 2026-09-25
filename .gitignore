@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+.claude/
+CLAUDE.md
+AGENTS.md
+*credentials*
+*secrets*
+*.pem
+artifacts/

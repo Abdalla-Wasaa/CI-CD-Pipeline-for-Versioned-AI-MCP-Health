@@ -1,0 +1,13 @@
+.git
+.venv
+.env*
+.claude
+CLAUDE.md
+AGENTS.md
+**/__pycache__
+.pytest_cache
+.ruff_cache
+artifacts
+*credentials*
+*secrets*
+*.pem

@@ -1,0 +1,59 @@
+$ python eval_prompts.py
+{"status": "PASS", "urgency_agreement": 1.0, "threshold": 0.85, "correct": 10, "total": 10, "prompt_version": "1.2.0", "prompt_sha": "39d9c08bdf9eb63e9d4cfe775e60ba1f9077478c1ebaf5f4f24a8b6e918621f5", "provider": "deterministic-stub"}
+
+
+exit=0; expected=0
+
+$ python eval_prompts.py --responses fixtures/responses/failing.json
+{"status": "FAIL", "urgency_agreement": 0.4, "threshold": 0.85, "correct": 4, "total": 10, "prompt_version": "1.2.0", "prompt_sha": "39d9c08bdf9eb63e9d4cfe775e60ba1f9077478c1ebaf5f4f24a8b6e918621f5", "provider": "recorded-fixture"}
+
+
+exit=1; expected=1
+
+$ python scripts/pipeline.py --prompt prompts/triage_system_v1.3.0-candidate.txt --state artifacts/blocked-eval.json
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python -m ruff check .
+All checks passed!
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python check_prompt_pin.py
+{"status": "PASS", "version": "1.2.0"}
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python -m pytest -q
+............                                                             [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 1 warning in 1.97s
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python eval_prompts.py --prompt prompts/triage_system_v1.3.0-candidate.txt
+{"status": "FAIL", "urgency_agreement": 0.5, "threshold": 0.85, "correct": 5, "total": 10, "prompt_version": "1.3.0-candidate", "prompt_sha": "f6de63a3059d6da834d6b958c5a6ff0620936022666616d50c3835b81fbac68d", "provider": "deterministic-stub"}
+BLOCKED: deployment not reached: Command '['/root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python', 'eval_prompts.py', '--prompt', 'prompts/triage_system_v1.3.0-candidate.txt']' returned non-zero exit status 1.
+
+
+exit=1; expected=1
+
+$ python scripts/pipeline.py --mcp-server /nonexistent/server.py --state artifacts/blocked-mcp.json
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python -m ruff check .
+All checks passed!
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python check_prompt_pin.py
+{"status": "PASS", "version": "1.2.0"}
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python -m pytest -q
+............                                                             [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 1 warning in 2.18s
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python eval_prompts.py
+{"status": "PASS", "urgency_agreement": 1.0, "threshold": 0.85, "correct": 10, "total": 10, "prompt_version": "1.2.0", "prompt_sha": "39d9c08bdf9eb63e9d4cfe775e60ba1f9077478c1ebaf5f4f24a8b6e918621f5", "provider": "deterministic-stub"}
+RUN /root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python scripts/check_mcp_health.py --server /nonexistent/server.py
+BLOCKED: deployment not reached: Command '['/root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python', 'scripts/check_mcp_health.py', '--server', '/nonexistent/server.py']' returned non-zero exit status 1.
+
+/root/AIEngineeringClass/afyaplus-ai-week1/Week 8 Capstone Project/.venv/bin/python: can't open file '/nonexistent/server.py': [Errno 2] No such file or directory
+FAIL MCP health: unhandled errors in a TaskGroup (1 sub-exception)
+
+exit=1; expected=1
+
+PASS: artifacts/blocked-eval.json does not exist; deployment blocked
+PASS: artifacts/blocked-mcp.json does not exist; deployment blocked

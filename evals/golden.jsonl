@@ -1,0 +1,10 @@
+{"id": "0", "message": "chest pain today", "urgency": "high"}
+{"id": "1", "message": "bleeding heavily", "urgency": "high"}
+{"id": "2", "message": "patient unconscious", "urgency": "high"}
+{"id": "3", "message": "cannot breathe today", "urgency": "high"}
+{"id": "4", "message": "mild headache", "urgency": "low"}
+{"id": "5", "message": "routine checkup", "urgency": "low"}
+{"id": "6", "message": "slight cough", "urgency": "low"}
+{"id": "7", "message": "minor itchy skin", "urgency": "low"}
+{"id": "8", "message": "bleeding after fall", "urgency": "high"}
+{"id": "9", "message": "unconscious person here", "urgency": "high"}

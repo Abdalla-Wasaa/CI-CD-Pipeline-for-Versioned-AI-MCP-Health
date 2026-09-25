@@ -1,0 +1,10 @@
+{
+  "version": "1.2.0",
+  "instruction": "Educational triage simulation. Return urgency only; a clinician makes decisions.",
+  "high_urgency_terms": [
+    "chest pain",
+    "bleeding",
+    "unconscious",
+    "cannot breathe"
+  ]
+}

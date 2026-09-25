@@ -1,0 +1,11 @@
+{
+  "clinics": [
+    {
+      "id": "demo-1",
+      "name": "Demo Clinic",
+      "stock": {
+        "ors_sachets": 25
+      }
+    }
+  ]
+}
